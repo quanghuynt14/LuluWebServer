@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Adding two numbers</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    Enter First Number: <input id="first">
+    Enter Second Number: <input id="second">
+    <button onclick="add()">Add</button>
+    Result is: <input id="answer">
+
+    <script>
+        async function add() {
+            var a, b, c;
+            a = Number(document.getElementById("first").value);
+            b = Number(document.getElementById("second").value);
+
+            var myInit = {
+                method: 'POST'
+            };
+            try {
+                const response = await fetch(`http://localhost:8080/add?a=${a.toString()}&b=${b.toString()}`, myInit)
+                const responseData = await response.json();
+
+                console.log(responseData);
+
+                document.getElementById("answer").value = responseData.result;
+
+            } catch (err) {
+                console.log(err);
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>
